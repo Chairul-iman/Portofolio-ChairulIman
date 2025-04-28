@@ -2,16 +2,17 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tentang Saya - Chairul Iman</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #23f8ff, #000000);
-      color: #333;
       margin: 0;
-      padding: 0;
-      line-height: 1.6;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: #f0f2f5;
     }
     .navbar {
       background: #2c3e50;
@@ -21,61 +22,120 @@
       align-items: center;
       padding: 10px 20px;
     }
-    .navbar a {
+    .toggle-sidebar {
+      background: none;
+      border: none;
       color: white;
-      text-decoration: none;
-      margin: 0 10px;
-      font-weight: bold;
-    }
-    .navbar a:hover {
-      text-decoration: underline;
+      font-size: 24px;
+      cursor: pointer;
     }
     .container {
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 30px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-grow: 1;
+      overflow: hidden;
     }
-    h1 {
-      text-align: center;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      color: #6a11cb;
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #34495e, #2c3e50);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      transition: transform 0.3s ease;
+      overflow-y: auto;
     }
-    h2 {
-      font-size: 2em;
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+    .sidebar h2 {
+      margin-top: 10px;
+      font-size: 26px;
+      text-align: center; /* Biar nama di tengah */
+      font-weight: bold;
+      color: #ffffff;
+      border-bottom: 2px solid #1abc9c;
+      padding-bottom: 10px;
+    }
+    .menu-section {
       margin-top: 20px;
-      border-bottom: 2px solid #6a11cb;
+      text-align: left;
+    }
+    .menu-section h3 {
+      margin: 10px 0;
+      font-size: 18px;
+      color: #1abc9c;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding-bottom: 5px;
-      color: #6a11cb;
+      border-bottom: 1px solid #1abc9c;
+    }
+    .menu-section h3::after {
+      content: '▼';
+      font-size: 14px;
+      transition: transform 0.3s;
+    }
+    .menu-section h3.open::after {
+      transform: rotate(180deg);
+    }
+    .menu-section div {
+      display: none;
+      margin-top: 5px;
+      margin-left: 10px;
+    }
+    .menu-section a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 6px 8px;
+      display: block;
+      border-radius: 5px;
+      transition: background 0.3s, padding-left 0.3s;
+    }
+    .menu-section a:hover {
+      background-color: #1abc9c;
+      padding-left: 14px;
+    }
+    .main-content {
+      flex-grow: 1;
+      padding: 40px;
+      background-color: #ecf0f1;
+      overflow-y: auto;
+      position: relative;
+    }
+    h1, h2 {
+      color: #34495e;
+      border-bottom: 2px solid #1abc9c;
+      padding-bottom: 10px;
     }
     p {
-      margin: 15px 0;
-      text-align: center;
+      font-size: 16px;
+      color: #555;
+      line-height: 1.7;
     }
     .achievements, .skills, .contact-info {
       margin-top: 20px;
-      padding: 15px;
-      background: rgba(106, 17, 203, 0.05);
+      padding: 20px;
+      background: white;
       border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     .achievement, .skill, .contact-item {
-      margin: 10px 0;
+      margin-bottom: 15px;
       padding: 10px;
-      background: rgba(106, 17, 203, 0.1);
+      background: #aee0a7;
       border-radius: 8px;
       transition: background 0.3s;
     }
     .achievement:hover, .skill:hover, .contact-item:hover {
-      background: rgba(106, 17, 203, 0.15);
+      background: #d9e5e8;
     }
     .back-button {
       display: inline-block;
       margin-top: 20px;
       padding: 10px 20px;
-      background: #6a11cb;
+      background: #1abc9c;
       color: white;
       font-weight: bold;
       border: none;
@@ -83,93 +143,115 @@
       cursor: pointer;
       text-decoration: none;
       transition: background 0.3s;
-      text-align: center;
     }
     .back-button:hover {
-      background: #2575fc;
+      background: #16a085;
     }
     .footer {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 0.9em;
-  background: rgba(0, 0, 0, 0.8); /* tambah background gelap */
-  padding: 20px 0; /* tambah padding biar lebih lega */
-  color: #fcfcfc;
-  font-weight: bold; /* biar tulisannya lebih tegas */
-}
-
+      text-align: center;
+      background: rgba(0,0,0,0.8);
+      color: #fcfcfc;
+      padding: 20px 0;
+      font-size: 0.9em;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
   <div class="navbar">
-    <div class="logo">
-      <a href="index.html">Kembali Ke Dashboard</a>
-    </div>
+    <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
   </div>
+  
 
   <div class="container">
-    <h1>Tentang Saya</h1>
-    <p>Halo! Nama saya <strong>Chairul Iman</strong>. Saya adalah seorang mahasiswa yang aktif dan bersemangat di Institut Widya Pratama Pekalongan. Dengan berbagai pengalaman dalam kepemimpinan, organisasi, dan acara, saya siap untuk menghadapi tantangan di dunia kerja.</p>
-    
-    <h2>Prestasi</h2>
-    <div class="achievements">
-      <div class="achievement">
-        <strong>Duta Kampus</strong> - Mewakili Institut Widya Pratama Pekalongan dalam berbagai acara dan kompetisi.
+    <div class="sidebar" id="sidebar">
+      <h2>Chairul Iman</h2>
+
+      <div class="menu-section">
+        <a href="index.html">Dashboard</a>
+        <a href="about.html">Tentang Saya</a>
       </div>
-      <div class="achievement">
-        <strong>Ketua Umum Unit Kegiatan Mahasiswa Pengembangan Komputer</strong> - Memimpin dan mengelola kegiatan mahasiswa di bidang teknologi dan komputer.
+
+      <div class="menu-section">
+        <h3 onclick="toggleMenu(this)">Project Frekuensi</h3>
+        <div>
+          <a href="desain.html">Pengenalan Frekuensi</a>
+          <a href="visualisasi.html">Visualisasi Frekuensi</a>
+          <a href="frekuensi.html">Data Frekuensi</a>
+          <a href="carifre.html">Cari Gelombang Otak</a>
+          <a href="aplikasifre.html">Aplikasi Frekuensi</a>
+        </div>
       </div>
-      <div class="achievement">
-        <strong>Pembawa Acara</strong> - Berpengalaman sebagai MC di berbagai acara kampus dan kegiatan lainnya.
+
+      <div class="menu-section">
+        <h3 onclick="toggleMenu(this)">Lainnya</h3>
+        <div>
+          <a href="website.html">My Website</a>
+          <a href="memories.html">Memories</a>
+        </div>
       </div>
-      <div class="achievement">
-        <strong>Penyelenggara Acara</strong> - Terlibat dalam perencanaan dan pelaksanaan acara-acara kampus yang sukses.
+
+      <div class="menu-section">
+        <a href="contact.html">Kontak Saya</a>
       </div>
     </div>
 
-    <h2>Keterampilan</h2>
-    <div class="skills">
-      <div class="skill">
-        <strong>Kemampuan Coding</strong> - Saya memiliki keterampilan dalam berbagai bahasa pemrograman seperti JavaScript, Python, dan PHP. Saya menikmati tantangan dalam menyelesaikan masalah dan menciptakan solusi inovatif melalui pemrograman.
-      </div>
-      <div class="skill">
-        <strong>Manajemen Proyek</strong> - Saya berpengalaman dalam merencanakan dan mengelola proyek, memastikan bahwa semua tugas diselesaikan tepat waktu dan sesuai anggaran.
-      </div>
-      <div class="skill">
-        <strong>Komunikasi</strong> - Saya memiliki kemampuan komunikasi yang baik, baik lisan maupun tulisan, yang membantu saya dalam berkolaborasi dengan tim dan menyampaikan ide-ide dengan jelas.
-      </div>
-      <div class="skill">
-        <strong>Analisis Data</strong> - Saya mampu menganalisis data untuk membuat keputusan yang berbasis informasi, serta menggunakan alat analisis untuk mendukung proyek yang saya kerjakan.
-      </div>
-    </div>
+    <div class="main-content">
+      <h1>Tentang Saya</h1>
+      <p>Halo! Nama saya <strong>Chairul Iman</strong>. Saya adalah seorang mahasiswa yang aktif dan bersemangat di Institut Widya Pratama Pekalongan. Dengan berbagai pengalaman dalam kepemimpinan, organisasi, dan acara, saya siap untuk menghadapi tantangan di dunia kerja.</p>
 
-    <h2>Visi dan Misi</h2>
-    <p>Saya percaya bahwa setiap individu memiliki potensi untuk berkembang dan memberikan dampak positif bagi lingkungan sekitar. Melalui pengalaman saya, saya ingin terus belajar dan berkontribusi dalam bidang teknologi dan kepemudaan, serta siap untuk beradaptasi dengan cepat di dunia kerja yang dinamis.</p>
-    
-    <h1>Kontak Saya</h1>
-    <p>Jika Anda ingin menghubungi saya, berikut adalah informasi kontak saya:</p>
-    
-    <div class="contact-info">
-      <div class="contact-item">
-        <strong>Email:</strong> <a href="mailto:khoirulimannn15@gmail.com" style="color: #6a11cb;">khoirulimannn15@gmail.com</a>
+      <h2>Prestasi</h2>
+      <div class="achievements">
+        <div class="achievement"><strong>Duta Kampus</strong> - Mewakili Institut Widya Pratama Pekalongan dalam berbagai acara dan kompetisi.</div>
+        <div class="achievement"><strong>Ketua Umum Unit Kegiatan Mahasiswa Pengembangan Komputer</strong> - Memimpin dan mengelola kegiatan mahasiswa di bidang teknologi dan komputer.</div>
+        <div class="achievement"><strong>Pembawa Acara</strong> - Berpengalaman sebagai MC di berbagai acara kampus dan kegiatan lainnya.</div>
+        <div class="achievement"><strong>Penyelenggara Acara</strong> - Terlibat dalam perencanaan dan pelaksanaan acara-acara kampus yang sukses.</div>
       </div>
-      <div class="contact-item">
-        <strong>WhatsApp:</strong> <a href="https://wa.me/6287826108793" style="color: #6a11cb;">0878 2610 8793</a>
-      </div>
-      <div class="contact-item">
-        <strong>Instagram:</strong> <a href="https://instagram.com/yuu_aozora" style="color: #6a11cb;">@yuu_aozora</a>
-      </div>
-    </div>
 
-    <a href="index.html" class="back-button">Kembali ke Halaman Utama</a>
+      <h2>Keterampilan</h2>
+      <div class="skills">
+        <div class="skill"><strong>Kemampuan Coding</strong> - Saya memiliki keterampilan dalam berbagai bahasa pemrograman seperti JavaScript, Python, Php, CI (CodeIgniter) & Laravel. Saya menikmati tantangan dalam menyelesaikan masalah dan menciptakan solusi inovatif melalui pemrograman.</div>
+        <div class="skill"><strong>Manajemen Proyek</strong> - Saya berpengalaman dalam merencanakan dan mengelola proyek, memastikan bahwa semua tugas diselesaikan tepat waktu dan sesuai anggaran.</div>
+        <div class="skill"><strong>Komunikasi</strong> - Saya memiliki kemampuan komunikasi yang baik, baik lisan maupun tulisan, yang membantu saya dalam berkolaborasi dengan tim dan menyampaikan ide-ide dengan jelas.</div>
+        <div class="skill"><strong>Analisis Data</strong> - Saya mampu menganalisis data untuk membuat keputusan yang berbasis informasi, serta menggunakan alat analisis untuk mendukung proyek yang saya kerjakan.</div>
+      </div>
+
+      <h2>Visi dan Misi</h2>
+      <p>Saya percaya bahwa setiap individu memiliki potensi untuk berkembang dan memberikan dampak positif bagi lingkungan sekitar. Melalui pengalaman saya, saya ingin terus belajar dan berkontribusi dalam bidang teknologi dan kepemudaan, serta siap untuk beradaptasi dengan cepat di dunia kerja yang dinamis.</p>
+
+      <h1>Kontak Saya</h1>
+      <p>Jika Anda ingin menghubungi saya, berikut adalah informasi kontak saya:</p>
+      <div class="contact-info">
+        <div class="contact-item"><strong>Email:</strong> <a href="mailto:khoirulimannn15@gmail.com" style="color: #1abc9c;">khoirulimannn15@gmail.com</a></div>
+        <div class="contact-item"><strong>WhatsApp:</strong> <a href="https://wa.me/6287826108793" style="color: #1abc9c;">0878 2610 8793</a></div>
+        <div class="contact-item"><strong>Instagram:</strong> <a href="https://instagram.com/yuu_aozora" style="color: #1abc9c;">@yuu_aozora</a></div>
+      </div>
+
+      <a href="index.html" class="back-button">Kembali ke Halaman Utama</a>
+    </div>
   </div>
 
-  <div class="footer" style="background: rgba(0, 0, 0, 0.8); padding: 20px 0; font-weight: bold;">
+  <div class="footer">
     &copy; 2024 Chairul Iman. Semua hak dilindungi.
-</div>
+  </div>
 
+<script>
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.classList.toggle('hidden');
+}
+
+function toggleMenu(header) {
+  header.classList.toggle('open');
+  const submenu = header.nextElementSibling;
+  if (submenu.style.display === 'block') {
+    submenu.style.display = 'none';
+  } else {
+    submenu.style.display = 'block';
+  }
+}
+</script>
 
 </body>
 </html>
