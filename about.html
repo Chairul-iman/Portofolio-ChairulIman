@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tentang Saya - Chairul Iman</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* CSS untuk responsivitas */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -14,6 +16,7 @@
       flex-direction: column;
       background-color: #f0f2f5;
     }
+
     .navbar {
       background: #2c3e50;
       color: white;
@@ -21,7 +24,12 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
     }
+
     .toggle-sidebar {
       background: none;
       border: none;
@@ -29,11 +37,14 @@
       font-size: 24px;
       cursor: pointer;
     }
+
     .container {
       display: flex;
       flex-grow: 1;
       overflow: hidden;
+      margin-top: 60px; /* Untuk memberi ruang di bawah navbar */
     }
+
     .sidebar {
       width: 260px;
       background: linear-gradient(180deg, #34495e, #2c3e50);
@@ -43,23 +54,32 @@
       padding: 20px;
       transition: transform 0.3s ease;
       overflow-y: auto;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 1000;
     }
+
     .sidebar.hidden {
       transform: translateX(-100%);
     }
+
     .sidebar h2 {
       margin-top: 10px;
       font-size: 26px;
-      text-align: center; /* Biar nama di tengah */
+      text-align: center;
       font-weight: bold;
       color: #ffffff;
       border-bottom: 2px solid #1abc9c;
       padding-bottom: 10px;
     }
+
     .menu-section {
       margin-top: 20px;
       text-align: left;
     }
+
     .menu-section h3 {
       margin: 10px 0;
       font-size: 18px;
@@ -71,19 +91,23 @@
       padding-bottom: 5px;
       border-bottom: 1px solid #1abc9c;
     }
+
     .menu-section h3::after {
       content: '▼';
       font-size: 14px;
       transition: transform 0.3s;
     }
+
     .menu-section h3.open::after {
       transform: rotate(180deg);
     }
+
     .menu-section div {
       display: none;
       margin-top: 5px;
       margin-left: 10px;
     }
+
     .menu-section a {
       color: white;
       text-decoration: none;
@@ -93,27 +117,33 @@
       border-radius: 5px;
       transition: background 0.3s, padding-left 0.3s;
     }
+
     .menu-section a:hover {
       background-color: #1abc9c;
       padding-left: 14px;
     }
+
     .main-content {
       flex-grow: 1;
       padding: 40px;
       background-color: #ecf0f1;
       overflow-y: auto;
       position: relative;
+      margin-left: 260px; /* Memberikan ruang untuk sidebar pada layar besar */
     }
+
     h1, h2 {
       color: #34495e;
       border-bottom: 2px solid #1abc9c;
       padding-bottom: 10px;
     }
+
     p {
       font-size: 16px;
       color: #555;
       line-height: 1.7;
     }
+
     .achievements, .skills, .contact-info {
       margin-top: 20px;
       padding: 20px;
@@ -121,6 +151,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
+
     .achievement, .skill, .contact-item {
       margin-bottom: 15px;
       padding: 10px;
@@ -128,9 +159,11 @@
       border-radius: 8px;
       transition: background 0.3s;
     }
+
     .achievement:hover, .skill:hover, .contact-item:hover {
       background: #d9e5e8;
     }
+
     .back-button {
       display: inline-block;
       margin-top: 20px;
@@ -144,9 +177,11 @@
       text-decoration: none;
       transition: background 0.3s;
     }
+
     .back-button:hover {
       background: #16a085;
     }
+
     .footer {
       text-align: center;
       background: rgba(0,0,0,0.8);
@@ -155,12 +190,57 @@
       font-size: 0.9em;
       font-weight: bold;
     }
+
+    /* Responsif untuk layar kecil */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column; /* Sidebar menyatu dengan konten */
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: translateX(-100%); /* Sidebar tersembunyi */
+        z-index: 1000;
+      }
+
+      .sidebar.hidden {
+        transform: translateX(0); /* Sidebar muncul saat toggle */
+      }
+
+      .main-content {
+        margin-left: 0; /* Tidak ada margin untuk konten utama */
+        padding: 20px;
+      }
+
+      .navbar {
+        padding: 10px 20px;
+        background-color: #2c3e50;
+        color: white;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1001;
+      }
+
+      .toggle-sidebar {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+      }
+    }
   </style>
 </head>
 <body>
 
   <div class="navbar">
-    <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+    <!-- Menggunakan Font Awesome Icon untuk Hamburger Menu -->
+    <button class="toggle-sidebar" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
   </div>
   
 
@@ -236,22 +316,23 @@
     &copy; 2024 Chairul Iman. Semua hak dilindungi.
   </div>
 
-<script>
-function toggleSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  sidebar.classList.toggle('hidden');
-}
+  <script>
+    // Toggle sidebar untuk mobile
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('hidden');
+    }
 
-function toggleMenu(header) {
-  header.classList.toggle('open');
-  const submenu = header.nextElementSibling;
-  if (submenu.style.display === 'block') {
-    submenu.style.display = 'none';
-  } else {
-    submenu.style.display = 'block';
-  }
-}
-</script>
-
+    // Toggle menu untuk item yang memiliki submenu
+    function toggleMenu(header) {
+      header.classList.toggle('open');
+      const submenu = header.nextElementSibling;
+      if (submenu.style.display === 'block') {
+        submenu.style.display = 'none';
+      } else {
+        submenu.style.display = 'block';
+      }
+    }
+  </script>
 </body>
 </html>
