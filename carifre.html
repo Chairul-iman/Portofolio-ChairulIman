@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aplikasi Frekuensi Gelombang Otak - Chairul Iman</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: #f0f2f5;
+    }
+    .navbar {
+      background: #34495e;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+    .toggle-sidebar {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    .container {
+      display: flex;
+      flex-grow: 1;
+      overflow: hidden;
+    }
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #34495e, #2c3e50);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+    .sidebar h2 {
+      margin: 0 0 15px 0;
+      font-size: 26px;
+      font-weight: bold;
+      border-bottom: 2px solid #1abc9c;
+      padding-bottom: 10px;
+    }
+    .menu-section {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .menu-section h3 {
+      margin: 10px 0;
+      font-size: 18px;
+      color: #1abc9c;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #1abc9c;
+    }
+    .menu-section h3::after {
+      content: '▼';
+      font-size: 14px;
+      transition: transform 0.3s;
+    }
+    .menu-section h3.open::after {
+      transform: rotate(180deg);
+    }
+    .menu-section div {
+      display: none;
+      margin-top: 5px;
+      margin-left: 10px;
+    }
+    .menu-section a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 6px 8px;
+      display: block;
+      border-radius: 5px;
+      transition: background 0.3s, padding-left 0.3s;
+    }
+    .menu-section a:hover {
+      background-color: #1abc9c;
+      padding-left: 14px;
+    }
+    .main-content {
+      flex-grow: 1;
+      padding: 40px;
+      background-color: #ecf0f1;
+      overflow-y: auto;
+      position: relative;
+    }
+    .header {
+      margin-bottom: 30px;
+      text-align: left;
+    }
+    .header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+    .header p {
+      font-size: 18px;
+      color: #b6b7b8;
+    }
+    .form-section {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-section h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #34495e;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #1abc9c;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #16a085;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #2c3e50;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        height: 100%;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .sidebar.hidden {
+        transform: translateX(0);
+      }
+      .main-content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+</div>
+
+<div class="container">
+  <div class="sidebar" id="sidebar">
+    <h2>Chairul Iman</h2>
+
+    <div class="menu-section">
+      <a href="index.html">Dashboard</a>
+      <a href="about.html">Tentang Saya</a>
+    </div>
+
+    <div class="menu-section">
+      <h3 onclick="toggleMenu(this)">Project Frekuensi</h3>
+      <div>
+        <a href="desain.html">Pengenalan Frekuensi</a>
+        <a href="visualisasi.html">Visualisasi Frekuensi</a>
+        <a href="frekuensi.html">Data Frekuensi</a>
+        <a href="carifre.html">Cari Gelombang Otak</a>
+        <a href="aplikasifre.html">Aplikasi Frekuensi</a>
+      </div>
+    </div>
+
+    <div class="menu-section">
+      <h3 onclick="toggleMenu(this)">Lainnya</h3>
+      <div>
+        <a href="website.html">My Website</a>
+        <a href="memories.html">Memories</a>
+      </div>
+    </div>
+    <div class="menu-section">
+        <a href="contact.html">Kontak Saya</a>
+      </div>
+  </div>
+
+  <div class="main-content">
+    <div class="header">
+      <h1>Aplikasi Frekuensi Gelombang Otak</h1>
+      <p>Masukkan nilai frekuensi untuk mengetahui jenis gelombang otakmu!</p>
+    </div>
+
+    <div class="form-section">
+      <h2>Deteksi Gelombang Otak</h2>
+      <label for="frequency">Masukkan Frekuensi (Hz):</label>
+      <input type="number" id="frequency" placeholder="Contoh: 10">
+
+      <button onclick="checkWave()">Cek Gelombang</button>
+
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleMenu(header) {
+  const menu = header.nextElementSibling;
+  const isVisible = menu.style.display === 'block';
+  document.querySelectorAll('.menu-section div').forEach(function(div) {
+    div.style.display = 'none';
+  });
+  document.querySelectorAll('.menu-section h3').forEach(function(h3) {
+    h3.classList.remove('open');
+  });
+  if (!isVisible) {
+    menu.style.display = 'block';
+    header.classList.add('open');
+  }
+}
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.classList.toggle('hidden');
+}
+
+function checkWave() {
+  const freq = parseFloat(document.getElementById('frequency').value);
+  const resultDiv = document.getElementById('result');
+  
+  if (isNaN(freq) || freq <= 0) {
+    resultDiv.innerText = "Masukkan angka frekuensi yang valid!";
+    return;
+  }
+
+  let gelombang = "";
+
+  if (freq >= 0.5 && freq <= 4) {
+    gelombang = "Delta (0.5–4 Hz) - Tidur dalam, penyembuhan.";
+  } else if (freq > 4 && freq <= 8) {
+    gelombang = "Theta (4–8 Hz) - Relaksasi, mimpi.";
+  } else if (freq > 8 && freq <= 13) {
+    gelombang = "Alpha (8–13 Hz) - Keadaan tenang, meditatif.";
+  } else if (freq > 13 && freq <= 30) {
+    gelombang = "Beta (13–30 Hz) - Konsentrasi, kesadaran aktif.";
+  } else if (freq > 30) {
+    gelombang = "Gamma (>30 Hz) - Kognisi tinggi, penyatuan informasi.";
+  } else {
+    gelombang = "Frekuensi tidak dikenali.";
+  }
+
+  resultDiv.innerText = `Jenis Gelombang Otak: ${gelombang}`;
+}
+</script>
+
+<footer style="text-align: center; padding: 15px; background-color: #34495e; color: white; font-size: 14px;">
+  &copy; 2024 Chairul Iman. Semua hak dilindungi.
+</footer>
+
+</body>
+</html>
